@@ -12,6 +12,7 @@ int contarlineas (char *filename);
 int main(int argc, char **argv){
 
   FILE *in;
+  FILE *out;
   int i,j;
   int n_rows, n_columns;
   float *mtiempo; 
@@ -27,9 +28,8 @@ n_columns = 2;
 
    gsl_matrix *matriz = gsl_matrix_calloc (n_rows, n_columns);    
    gsl_matrix *g = gsl_matrix_calloc (n_rows, 3);   
-   // gsl_matrix *g_trans = gsl_matrix_calloc (3,n_rows);    
    gsl_matrix *gTg = gsl_matrix_calloc (3,3);
-   gsl_matrix *inve = gsl_matrix_calloc (3,3);  
+   gsl_matrix *inversa = gsl_matrix_calloc (3,3);  
    gsl_vector *t = gsl_vector_calloc (n_rows);
    gsl_vector *pos = gsl_vector_calloc (n_rows);     
    gsl_vector *gTd = gsl_vector_calloc (3);   
@@ -44,23 +44,21 @@ n_columns = 2;
    gsl_matrix_get_col (t, matriz, 0);
    gsl_matrix_get_col (pos, matriz, 1);
   
-   // G matrix is written
-   write_g (t, g, n_rows);
+   /* crea g*/
+   crearg (t, g, n_rows);  
+   /* se crea (G^T) * G */
+   gsl_blas_dgemm (CblasTrans, CblasNoTrans, 1.0, g, g, 0.0, gTg);  
+   /* se crea  [(G^T) * G]^(-1) */ 
+   invertirmatriz (gTg, inversa, 3);  
+   /* se crea  (G^T) * d */
+   gsl_blas_dgemv (CblasTrans, 1.0, g, pos, 0.0, gTd);  
+   /* se obtiene m */
+   gsl_blas_dgemv (CblasNoTrans, 1.0, inversa, gTd, 0.0, m);
   
-   // (G^T) * G matrix is calculated
-   gsl_blas_dgemm (CblasTrans, CblasNoTrans, 1.0, g, g, 0.0, gTg);
-  
-   // (G^T) * G is inverted and saved into [(G^T) * G]^(-1) matrix
-   invert_matrix (gTg, inve, 3);
-  
-   // (G^T) * d vector is calculated
-   gsl_blas_dgemv (CblasTrans, 1.0, g, pos, 0.0, gTd);
-  
-   // m vector is calculated
-   gsl_blas_dgemv (CblasNoTrans, 1.0, inve, gTd, 0.0, m);
-  
-   // exports parameters into file
-   print_file(m);
+
+   /* imprime el archivo con los valores de m*/ 
+  out = fopen("parametros_movimiento.dat", "w");
+  fprintf(out, "%f %f %f" ,gsl_vector_get (m, 0), gsl_vector_get (m, 1) ,gsl_vector_get (m, 2)); 
 
 
    return 0;
@@ -93,47 +91,39 @@ do{
 }
 
 
-int write_g (gsl_vector* time, gsl_matrix* answer, int size)
-{
-  gsl_vector* one = gsl_vector_calloc( size );
-  gsl_vector* time_squared = gsl_vector_calloc( size );
+/* crea la matriz [1 t 1/2 t*t] */
 
-  gsl_vector_set_all (one, 1.0);
-  gsl_vector_add (time_squared, time);
-  gsl_vector_mul (time_squared, time);
-  gsl_vector_scale (time_squared, 0.5);
+int crearg (gsl_vector* mtiempo, gsl_matrix* answer, int size)
+{
+  gsl_vector* cte = gsl_vector_calloc( size );
+  gsl_vector* tt = gsl_vector_calloc( size );
+
+  gsl_vector_set_all (cte , 1.0);
+  gsl_vector_add (tt, mtiempo);
+  gsl_vector_mul (tt, mtiempo);
+  gsl_vector_scale (tt, 0.5);
 
   gsl_matrix_set_col (answer, 0, one);
-  gsl_matrix_set_col (answer, 1, time);
-  gsl_matrix_set_col (answer, 2, time_squared);	
+  gsl_matrix_set_col (answer, 1, mtiempo);
+  gsl_matrix_set_col (answer, 2, tt);	
   
    return 0;
 }
 
 
-
-int invert_matrix (gsl_matrix * m, gsl_matrix * inverse, int n)
+int invertirmatriz  (gsl_matrix * m, gsl_matrix * inversa, int n)
 {
 
    int s;
-
   gsl_permutation * perm = gsl_permutation_alloc (n);
 
   gsl_linalg_LU_decomp (m, perm, &s);
-  gsl_linalg_LU_invert (m, perm, inverse);
+  gsl_linalg_LU_invert (m, perm, inversa);
  
-return 0;
+  return 0;
 }
 
-int print_file (gsl_vector* input)
-{
-  FILE *export;
-  export = fopen("parametros_movimiento.dat", "w");
 
-  fprintf(export, "%f %f %f" ,gsl_vector_get (input, 0), gsl_vector_get (input, 1) ,gsl_vector_get (input, 2));
-
-return 0;
-}
 
  
  
