@@ -48,7 +48,7 @@ out = open ("frecuencias"+sys.argv[1], 'r')
 coso = out.readlines()
 
 listfrecuencia2 =  []
-lista_fi2 = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
+lista_fi2 = [numpy.log(1),numpy.log(2),numpy.log(3),numpy.log(4),numpy.log(5),numpy.log(6),numpy.log(7),numpy.log(8),numpy.log(9),numpy.log(10),numpy.log(11),numpy.log(12),numpy.log(13),numpy.log(14),numpy.log(15),numpy.log(16),numpy.log(17),numpy.log(18),numpy.log(19),numpy.log(20)]
 
 
 for i in range (20):
