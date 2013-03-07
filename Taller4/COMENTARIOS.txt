@@ -1,0 +1,2 @@
+Hubo un problema con la libreria matplotlib en las maquinas de compufis, por lo cual las graficas se obtuvieron creando un archivo con los datos y graficandolo usando GNUPLOT
+De todas maneras el codigo que usa la libreria matplotlib esta comentado, entonces si se quiere usar faltaria quitar los comentarios.
