@@ -1,0 +1,21 @@
+# obtiene la matriz de covarianzas 
+  #1. Obtener el vector de los valores de la gravedad en cada exp.
+	#2. Obtener el vector de los valores de la velocidad en x en cada exp.
+	#3. Obtener el vector de los valores de la velocidad en y en cada exp.
+gravedad = []
+vSubx = []
+vSuby = []
+
+for row in table:
+    gravedad.append(row[4])
+    vSubx.append(row[2])
+    vSuby.append(row[3])
+
+	#4. Obtener la matiz sobre la que se calcularán las covarianzas
+M=np.vstack((gravedad, vSubx, vSuby))
+
+	#5. Calcular las covarianzas y guardar el resultado en un archivo
+archivoPCA = open("PCA.txt", w)
+archivoPCA.write(np.cov(M))
+archivoPCA.write('\n')
+archivoPCA.close()
