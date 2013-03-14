@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+#include <gsl/gsl_math.h>
+#include <gsl/gsl_matrix.h>
+#include <gsl/gsl_linalg.h>
+#include <gsl/gsl_cblas.h>
+#include <gsl/gsl_blas.h>
+
+float  myfuncion ( double x);
+
+int main (int argc, char** argv){
+
+  int a = argv[0];
+  int b = argv[1];
+  int h = argv[2];
+
+  float paso = (b-a)/h;
+
+  int lista[(b-a)*h];
+
+    float integral = 0;
+
+  for(i=a; i<b; i+=paso){
+    
+    lista[i] = myfuncion(i);
+
+  }
+
+  for(i=a; i<b; i+=paso){
+    
+   integral += lista*paso;
+
+  }
+  
+    printf("%f\n", integral);
+
+}
+
+
+float  myfuncion ( double x){
+
+  return ((1)/(sqrt(1+ cos(x)*sin(x));
+}
+
+
