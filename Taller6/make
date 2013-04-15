@@ -1,7 +1,7 @@
 a.out: main_taller6.o funciones.o 
 	cc -lm main_taller6.o funciones.o
 	./a.out
-	
+	python plot.py
 
 main_taller6.o: main_taller6.c
 	cc -c main_taller6.c

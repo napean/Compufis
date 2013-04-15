@@ -1,9 +1,7 @@
 a.out: main_taller6.o funciones.o 
 	cc -lm main_taller6.o funciones.o
 	./a.out
-	gnuplot
-	plot "valores9.dat" using 1:3
-
+	python plot.py
 
 main_taller6.o: main_taller6.c
 	cc -c main_taller6.c
