@@ -1,0 +1,2 @@
+El radio de equilibro es: 1513252419771.707275 cm
+El periodo de oscilacion es:  5.231481 dias

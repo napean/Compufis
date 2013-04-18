@@ -1,10 +1,10 @@
 
 
 
-float funprim1  (float t, float r, float v, float p);
+double funprim1  (double t, double r, double v, double p);
 
+double funprim2  (double t, double r, double v, double p);
 
-float funprim2  (float t, float r, float v, float p);
+double funp  ( double r);
 
-float funp  ( float r);
 

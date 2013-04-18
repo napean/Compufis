@@ -1,0 +1,24 @@
+a.out: main.o funciones.o 
+	@cc main.o funciones.o  -lm
+	@./a.out
+	@python plot.py
+	@python max.py
+
+main.o: main.c
+	@cc -c main.c -lm
+
+funciones.o: funciones.c
+	@cc -c funciones.c -lm
+
+
+
+all: a.out
+
+clean:
+	@rm -f *.o
+	@rm -f a.out
+	@rm -f *.png
+	@rm -f *.dat
+	@rm -f *.txt
+
+
