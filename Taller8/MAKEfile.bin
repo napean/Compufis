@@ -1,0 +1,13 @@
+a.out: taller8.o
+	cc taller8.o
+	./a.out
+	
+taller8.o: taller8.c
+	cc -c taller8.c
+
+all: a.out
+
+clean:
+	rm -f *.dat
+	rm a.out
+
