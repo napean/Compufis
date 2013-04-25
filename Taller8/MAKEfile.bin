@@ -4,7 +4,8 @@ taller8.exe taller8_2.exe: taller8.o taller8_2.o
 	./taller8.exe 
 	./taller8_2.exe
 	gnuplot comand.txt
-
+	gnuplot comand2.txt
+	
 
 
 taller8.o: taller8.c
@@ -20,4 +21,5 @@ all: taller8.exe taller8_2.exe
 clean:
 	rm -f *.dat
 	rm -f *.exe
+	rm -f *.png
 

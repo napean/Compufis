@@ -6,4 +6,5 @@ replot
 set terminal png
 set output "segundo.png"
 replot
- exit
+
+exit

@@ -6,6 +6,7 @@ replot
 set terminal png
 set output "primer.png"
 replot
- exit
+
+
 
 
