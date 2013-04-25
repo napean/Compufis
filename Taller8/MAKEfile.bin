@@ -4,8 +4,7 @@ taller8.exe taller8_2.exe: taller8.o taller8_2.o
 	./taller8.exe 
 	./taller8_2.exe
 	gnuplot comand.txt
-	gnuplot comand2.txt
-	
+
 
 
 taller8.o: taller8.c
