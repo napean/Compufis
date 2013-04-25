@@ -1,0 +1,9 @@
+plot "segun30000.dat" ,  "segun60000.dat" , "segun90000.dat" , "segun120000.dat" , "segun150000.dat" , "segun180000.dat" , "segun210000.dat" , "segun240000.dat" , "segun270000.dat", "segun0.dat"
+
+set terminal postscript
+set output "primer.ps"
+replot
+set terminal png
+set output "primer.png"
+replot
+ exit

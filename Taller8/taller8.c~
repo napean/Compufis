@@ -40,7 +40,7 @@ int main(){
 		for(i=1; i<nPoints-1;i++){
 			uNew[i] = alfa*uInitial[i+1] + (1-(2*alfa))*uInitial[i] + alfa*uInitial[i-1];
 		}
-	if(j%30000==0){
+	if(j%3000==0){
 
 	char nom[15];
 	sprintf(nom,"primer%d.dat", j);

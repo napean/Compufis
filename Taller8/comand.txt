@@ -1,0 +1,11 @@
+plot "primer30000.dat" ,  "primer60000.dat" , "primer90000.dat" , "primer120000.dat" , "primer150000.dat" , "primer180000.dat" , "primer210000.dat" , "primer240000.dat" , "primer270000.dat" , "primer0.dat" 
+
+set terminal postscript
+set output "primer.ps"
+replot
+set terminal png
+set output "primer.png"
+replot
+ exit
+
+

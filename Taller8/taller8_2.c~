@@ -6,16 +6,16 @@ int main(){
 //uInitial Construction
     int nPoints = 100;
     float* x=malloc(nPoints * sizeof(float));
-    float interval = 1.0/nPoints;
-    x[0]=0.0;
+    float interval = 10.0/nPoints;
+    x[0]=-5.0;
     int i=0;
-	int cos =0;
+	int cos = 0;
     for(i=1; i< nPoints;i++){
         x[i]=x[i-1]+ interval;
     }
     float* uInitial=malloc(nPoints * sizeof(float));
     for(i=0;i<nPoints;i++){
-        uInitial[i]=4*x[i]*(1-x[i]);
+        uInitial[i]=exp(-x[i]*x[i]);
     }
 //Firs Iteration
 	float deltaX = x[1]-x[0];
@@ -28,22 +28,22 @@ int main(){
 	uInitial[nPoints-1] = 0.0;
 //Copy of the initial array
 	float* uNew = malloc(nPoints * sizeof(float));
-
-/*	for(i=0; i<nPoints; i++){
+	for(i=0; i<nPoints; i++){
 		uNew[i]=uInitial[i];
-	}*/
+	}
 
 //Doing it n times
 	float nTimes = 3.0/deltaT;
-	int j=0;
+	int j=1;
 	for(j; j < nTimes; j++){
 		for(i=1; i<nPoints-1;i++){
 			uNew[i] = alfa*uInitial[i+1] + (1-(2*alfa))*uInitial[i] + alfa*uInitial[i-1];
 		}
+
 	if(j%30000==0){
 
 	char nom[15];
-	sprintf(nom,"primer%d.dat", j);
+	sprintf(nom,"segun%d.dat", j);
 	FILE *out;
 	out = fopen(nom,"w");
 	int m=0;
@@ -54,9 +54,10 @@ int main(){
 		
 
 	}
-	for(cos=0; cos <nPoints; cos ++){
+	for(cos =0; cos<nPoints; cos++){
 			uInitial[cos]=uNew[cos];
 		}
+	
 	}
 	
 
